@@ -23,7 +23,7 @@ void test1()
 	SListEraseAfter(pos);
 
 	SListPrint(plist);
-	SListDestory(plist);
+	SListDestory(&plist);
 	SListPrint(plist);
 
 }

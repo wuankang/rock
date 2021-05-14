@@ -138,7 +138,10 @@ SListNode* SListFind(SListNode* plist, SLTDateType x)
 
 void SListInsertAfter(SListNode* pos, SLTDateType x)
 {
-	assert(pos);
+	if (NULL == pos)
+	{
+		return;
+	}
 	SListNode* node = BuySListNode(x);
 	node->next = pos->next;
 	pos->next = node;
@@ -146,26 +149,30 @@ void SListInsertAfter(SListNode* pos, SLTDateType x)
 
 void SListEraseAfter(SListNode* pos)
 {
-	assert(pos);
+	if (NULL == pos || NULL == pos->next)
+	{
+		return;
+	}
 	SListNode* next = pos->next;
 	pos->next = next->next;
 	free(next);
 }
 
 // 单链表的销毁
-void SListDestory(SListNode* plist)
+void SListDestory(SListNode** pplist)
 {
+	assert(pplist);
 	SListNode* cur = NULL;
-	if (NULL == plist)
+	if (NULL == *pplist)
 	{
 		return;
 	}
-	cur = plist;
+	cur = *pplist;
 	while (cur)
 	{
-		free(plist);
-		plist = NULL;
+		free(*pplist);
+		*pplist = NULL;
 		cur = cur->next;
-		plist = cur;
+		*pplist = cur;
 	}
 }
